@@ -21,20 +21,16 @@ from api.models import User, Honeypot
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['id','url', 'username', 'email', 'is_staff', 'containers']
+        fields = ['id','url', 'username','first_name', 'last_name', 'email', 'is_staff', 'containers']
 
 class HoneypotSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Honeypot
-        fields = ['id','name', 'container_id', 'container_ip', 'container_conf', "user"]
+        fields = ['id', 'url', 'name', 'container_id', 'container_ip', 'container_conf', "user"]
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-    def get_queryset(self):
-        return User.objects.filter(username=self.request.user.username)
-    
 
 
 class HoneypotViewSet(viewsets.ModelViewSet):
