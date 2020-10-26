@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
 from api.models import User, Honeypot
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.views import obtain_auth_token
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -29,6 +31,7 @@ class HoneypotSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'url', 'name', 'container_id', 'container_ip', 'container_conf', "user"]
 
 class UserViewSet(viewsets.ModelViewSet):
+    permission_classes=(IsAuthenticated,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -46,4 +49,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]
