@@ -19,22 +19,29 @@ from rest_framework import routers, serializers, viewsets
 from api.models import User, Honeypot
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from rest_framework.generics import RetrieveAPIView
 
-class UsersSerializer(serializers.HyperlinkedModelSerializer):
+class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','url', 'username','first_name', 'last_name', 'email', 'is_staff', 'containers']
+        fields = ['id', 'last_login', 'username', 'first_name', 'last_name', 'containers']
 
 class HoneypotsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Honeypot
-        fields = ['id', 'url', 'name', 'container_id', 'container_ip', 'container_conf', "user"]
+        fields = '__all__'
 
 class UsersViewSet(viewsets.ModelViewSet):
     permission_classes=(IsAuthenticated,)
     queryset = User.objects.all()
     serializer_class = UsersSerializer
 
+class UserView(RetrieveAPIView):
+    def get(self, request,format=None):
+        ser = UsersSerializer(request.user)
+        return Response(ser.data)
 
 class HoneypotsViewSet(viewsets.ModelViewSet):
     queryset = Honeypot.objects.all()
@@ -48,6 +55,7 @@ router.register(r'honeypots', HoneypotsViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('user/',UserView.as_view(), name="userview"),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]
