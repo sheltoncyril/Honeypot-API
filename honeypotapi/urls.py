@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
 from api.models import User, Honeypot
+from api.utils import ver
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.authtoken.models import Token

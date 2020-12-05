@@ -4,6 +4,7 @@ chardet==3.0.4
 Django==3.1.2
 django-filter==2.4.0
 djangorestframework==3.12.1
+docker==4.4.0
 httpie==2.3.0
 idna==2.10
 Markdown==3.3.2
@@ -13,5 +14,7 @@ PySocks==1.7.1
 pytz==2020.1
 requests==2.24.0
 requests-toolbelt==0.9.1
+six==1.15.0
 sqlparse==0.4.1
 urllib3==1.25.11
+websocket-client==0.57.0
