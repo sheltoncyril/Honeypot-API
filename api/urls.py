@@ -1,12 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import UsersViewSet, HoneypotsViewSet, UserView
+from .views import UsersViewSet, HoneypotTemplatesViewSet,HoneypotsViewSet, UserView, TriggersViewSet
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
 router.register(r'users', UsersViewSet)
-router.register(r'honeypots', HoneypotsViewSet)
+router.register(r'HoneypotTemplates', HoneypotTemplatesViewSet)
+router.register(r'Honeypots', HoneypotsViewSet)
+router.register(r'Triggers', TriggersViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
