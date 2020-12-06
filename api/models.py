@@ -33,6 +33,6 @@ class Trigger(models.Model):
     username = models.CharField(max_length=64)
     password = models.CharField(max_length=64)
     log_time = models.DateTimeField(default=now, editable=False)
-
+    full_log = models.TextField(blank=True)
     def __str__(self):
         return f'{self.Honeypot} {self.log_time}'

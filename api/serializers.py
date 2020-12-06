@@ -16,9 +16,9 @@ class HoneypotTemplateSerializer(serializers.HyperlinkedModelSerializer):
 class HoneypotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Honeypot
-        fields = ['name','template', 'container_ip', 'container_id', 'user', 'triggers' ]
+        fields = ['id', 'name','template', 'container_ip', 'container_id', 'user', 'triggers' ]
 
 class TriggerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trigger
-        fields = ['id','Honeypot','source_ip','port', 'username', 'password', 'log_time']
+        fields = ['id','Honeypot','source_ip','port', 'username', 'password', 'log_time', 'full_log']
