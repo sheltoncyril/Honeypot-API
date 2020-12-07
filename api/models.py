@@ -18,8 +18,8 @@ class Honeypot(models.Model):
     id = models.UUIDField(primary_key= True, editable=False, default=uuid.uuid4)
     name = models.CharField(max_length=50)
     template = models.ForeignKey(HoneypotTemplate, on_delete=models.CASCADE, related_name='template')
-    container_id = models.CharField(max_length=100)
-    container_ip = models.GenericIPAddressField()
+    container_id = models.CharField(max_length=100, blank=True, null=True)
+    container_ip = models.GenericIPAddressField(blank=True,null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='containers', default="None")
 
     def __str__(self):
