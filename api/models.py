@@ -16,10 +16,11 @@ class HoneypotTemplate(models.Model):
 
 class Honeypot(models.Model):
     id = models.UUIDField(primary_key= True, editable=False, default=uuid.uuid4)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,unique=True)
     template = models.ForeignKey(HoneypotTemplate, on_delete=models.CASCADE, related_name='template')
-    container_id = models.CharField(max_length=100, blank=True, null=True)
+    container_id = models.CharField(max_length=100,blank=True,null=True)
     container_ip = models.GenericIPAddressField(blank=True,null=True)
+    container_port = models.PositiveIntegerField(default=80, validators=[MinValueValidator(0),MaxValueValidator(65535)])
     user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='honeypots', default="None")
 
     def __str__(self):
